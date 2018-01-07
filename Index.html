@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="binder">
+
+    </div>
+
+    <script id="users-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div class="entry">
+          <h3>{{name}}</h3>
+          <div class="body">
+            <ul>
+                <li>{{subregion}}</li>
+                <li>{{population}}</li>
+                {{#if borders}}
+                <li>{{borders}}</li>
+                {{/if}}
+                <li>Currency
+                    <ul>
+                        {{#each currencies}}
+                        <li>{{code}}</li>
+                        <li>{{name}}</li>
+                        <li>{{symbol}}</li>
+                        <hr>
+                        {{/each}}
+                    </ul>
+                </li>
+                <li>{{borders}}</li>
+                <li>Languages
+                    <ul>
+                        {{#each languages}}
+                        <li>{{name}}</li>
+                        <li>{{nativeName}}</li>
+                        <hr>
+                        {{/each}}
+                    </ul>
+                </li>
+            </ul>
+          </div>
+        </div>
+        <hr>
+        {{/each}}
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script> 
+    <script>
+        $(function(){
+            loadData();
+        })
+        function loadData(){
+            $.ajax({
+                url:'https://restcountries.eu/rest/v2/all',
+                type:'GET',
+                dataType:'json',
+                success:function(response){
+                    // Extract the text from the template
+                    var raw_template = $('#users-template').html();
+                    // Complile that into an handlebars template
+                    var template = Handlebars.compile(raw_template);
+                    var placeHolder = $('#binder');
+                    var html = template(response);
+                    placeHolder.append(html);
+                },
+                error:function(){},
+                complete:function(){}
+            })
+        }
+    </script>
+</body>
+</html>
