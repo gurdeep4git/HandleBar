@@ -1,0 +1,8 @@
+.entry{
+    border: 1px solid;
+    margin-bottom: 5px;
+    padding:15px; 
+}
+.entry:nth-child(even){
+    background-color: #eee;
+}
