@@ -16,6 +16,7 @@
         {{#each this}}
         <div class="entry">
           <h3>{{name}}</h3>
+          <h4>{{areaPopulation this}}</h4>
           <div class="body">
             <ul>
                 <li>{{subregion}}</li>
@@ -54,6 +55,9 @@
     <script>
         $(function(){
             loadData();
+            Handlebars.registerHelper('areaPopulation', function(country) {
+                return country.population + " | " + country.area;
+            });
         })
         function loadData(){
             $.ajax({
