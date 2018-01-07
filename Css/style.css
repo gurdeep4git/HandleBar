@@ -5,4 +5,8 @@
 }
 .entry:nth-child(even){
     background-color: #eee;
+
+}
+.entry h3{
+    text-transform: uppercase;
 }
